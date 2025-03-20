@@ -5,9 +5,9 @@ CREATE TABLE IF NOT EXISTS "dimCompany" (
 	"sectorCodeCompany" VARCHAR(32) NOT NULL,
 	"sectorCompany" VARCHAR(256) NOT NULL,
 	"segmentCompany" VARCHAR(256) NOT NULL,
-	"started_at" TIMESTAMP NOT NULL DEFAULT NOW(),
-	"ended_at" TIMESTAMP NULL,
-	"is_active" BOOLEAN NOT NULL DEFAULT TRUE,
+	"startedAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+	"endedAt" TIMESTAMP NULL,
+	"isActive" BOOLEAN NOT NULL DEFAULT TRUE,
 	CONSTRAINT companyPK PRIMARY KEY ("keyCompany")
 );
 

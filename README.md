@@ -27,4 +27,4 @@ dimCompany: Menyimpan informasi perusahaan terkait
 dimCoin: Menyimpan informasi mata uang terkait
 dimTime: Menyimpan informasi waktu transaksi
 
-detail file: [Deskripsi Dataset.pdf](deskripsi-dataset.pdf).
+detail file: [Deskripsi Dataset.pdf](Deskripsi Dataset.pdf).

@@ -19,12 +19,12 @@ Nama Dataset: ([Brazilian Stock market](https://www.kaggle.com/datasets/leomauro
 Dataset ini menggunakan Fact Constellation Schema (Galaxy Schema), dengan detail:
 
 Tabel fakta:
-factStocks: Menyimpan transaksi saham harian
-factCoins: Menyimpan nilai tukar mata uang harian
+- factStocks: Menyimpan transaksi saham harian
+- factCoins: Menyimpan nilai tukar mata uang harian
 
 Tabel dimensi:
-dimCompany: Menyimpan informasi perusahaan terkait
-dimCoin: Menyimpan informasi mata uang terkait
-dimTime: Menyimpan informasi waktu transaksi
+- dimCompany: Menyimpan informasi perusahaan terkait
+- dimCoin: Menyimpan informasi mata uang terkait
+- dimTime: Menyimpan informasi waktu transaksi
 
 detail file: [Deskripsi Dataset.pdf](Deskripsi%20Dataset.pdf).

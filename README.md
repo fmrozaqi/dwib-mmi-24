@@ -1,6 +1,6 @@
 # dwib-mmi-24
 
-- Alfy Nur Fauzia24/546719/PPA/06850
+- Alfy Nur Fauzia 24/546719/PPA/06850
 - Faiz Miftakhur Rozaqi 24/548072/PPA/06915
 - Firda Ayu Safitri 24/548483/PPA/06929
 - Silmi Utami Putri 24/549092/PPA/06935

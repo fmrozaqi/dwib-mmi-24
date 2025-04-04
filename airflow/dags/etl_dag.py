@@ -11,8 +11,8 @@ default_args = {
     'depends_on_past': False,
     'email_on_failure': False,
     'email_on_retry': False,
-    'retries': 1,
-    'retry_delay': timedelta(minutes=5),
+    'retries': 3,
+    'retry_delay': timedelta(minutes=2),
 }
 
 def run_full_pipeline():
@@ -67,4 +67,4 @@ with DAG(
     )
 
     # Set up dependencies
-    full_pipeline >> [update_coins]
+    full_pipeline >> [update_coins, update_stocks]

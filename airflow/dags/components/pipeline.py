@@ -5,7 +5,7 @@ from datetime import datetime
 class ETLPipeline:
     """Class untuk mengotomatisasi proses ETL"""
     
-    def __init__(self, db_path='brazil_stock_market.db'):
+    def __init__(self, db_path='config/brazil_stock_market.db'):
         """Inisialisasi pipeline"""
         self.conn = duckdb.connect(db_path)
         self.initialized = False
@@ -178,11 +178,11 @@ class ETLPipeline:
             
             # Ekstrak data dari file CSV
             # Create staging tables from CSVs
-            self.conn.execute("CREATE TABLE stagingCoin AS SELECT * FROM read_csv_auto('data/dimCoin.csv')")
-            self.conn.execute("CREATE TABLE stagingCompany AS SELECT * FROM read_csv_auto('data/dimCompany.csv')")
-            self.conn.execute("CREATE TABLE stagingTime AS SELECT * FROM read_csv_auto('data/dimTime.csv')")
-            self.conn.execute("CREATE TABLE stagingCoinValue AS SELECT * FROM read_csv_auto('data/factCoins.csv')")
-            self.conn.execute("CREATE TABLE stagingStockValue AS SELECT * FROM read_csv_auto('data/factStocks.csv')")
+            self.conn.execute("CREATE TABLE stagingCoin AS SELECT * FROM read_csv_auto('config/data/dimCoin.csv')")
+            self.conn.execute("CREATE TABLE stagingCompany AS SELECT * FROM read_csv_auto('config/data/dimCompany.csv')")
+            self.conn.execute("CREATE TABLE stagingTime AS SELECT * FROM read_csv_auto('config/data/dimTime.csv')")
+            self.conn.execute("CREATE TABLE stagingCoinValue AS SELECT * FROM read_csv_auto('config/data/factCoins.csv')")
+            self.conn.execute("CREATE TABLE stagingStockValue AS SELECT * FROM read_csv_auto('config/data/factStocks.csv')")
             
             # Hitung total jumlah catatan
             total_records = 0
@@ -625,6 +625,8 @@ class ETLPipeline:
             
         except Exception as e:
             print(f"ERROR: Pipeline ETL gagal: {str(e)}")
+            self.conn.close()
+            print(f"Database Closed")
             return False
     
     def get_etl_log(self, limit=10):

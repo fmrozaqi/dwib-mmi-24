@@ -22,7 +22,7 @@ def run_full_pipeline():
 def update_coin_data():
     pipeline = ETLPipeline()
     pipeline.insert_fact_data(
-        csv_path="data/generated/coin_values.csv",
+        csv_path="config/data/generated/coin_values.csv",
         staging_fact_table="stagingFactCoins",
         dim_table="dimCoin",
         key_column="keyCoin",
@@ -32,7 +32,7 @@ def update_coin_data():
 def update_stock_data():
     pipeline = ETLPipeline()
     pipeline.insert_fact_data(
-        csv_path="data/generated/stock_values.csv",
+        csv_path="config/data/generated/stock_values.csv",
         staging_fact_table="stagingFactStocks",
         dim_table="dimCompany",
         key_column="keyCompany",
@@ -67,4 +67,4 @@ with DAG(
     )
 
     # Set up dependencies
-    full_pipeline >> [update_coins, update_stocks]
+    full_pipeline >> update_coins >> update_stocks

@@ -1,0 +1,12 @@
+ Tangkapan layar menunjukkan UI Airflow yang menampilkan salah satu DAG (Directed Acyclic
+ Graph) yang telah kami buat, yaitu 'brazil_stock_market_etl'. DAG ini digunakan untuk menjalankan proses
+ ETL (Extract, Transform, Load) data pasar saham Brazil.
+ DAG ini terdiri dari tiga task utama:
+ 1. run_full_pipeline - Task awal untuk menjalankan keseluruhan proses.
+ 2. update_coin_data - Task untuk memperbarui data koin/kripto.
+ 3. update_stock_data - Task untuk memperbarui data saham.
+ Setiap task menggunakan PythonOperator, yang berarti masing-masing menjalankan fungsi Python tertentu
+ yang sudah kami definisikan sebelumnya. Alur eksekusinya berjalan dari kiri ke kanan, menunjukkan urutan
+ dependensi antar task.
+ Tangkapan layar ini juga memperlihatkan bahwa Airflow dijalankan secara lokal melalui Docker, dan
+ antarmukanya dapat diakses melalui browser di alamat http://localhost:8080

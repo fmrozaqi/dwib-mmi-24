@@ -445,7 +445,7 @@ class ETLPipeline:
                 return True
                 
             self.delete_staging_table_value()  # optional cleanup if you have this implemented
-                
+            
             # Load CSV
             df = pd.read_csv(csv_path, parse_dates=['time'])
 

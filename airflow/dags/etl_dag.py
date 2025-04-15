@@ -4,6 +4,7 @@ from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 
 from components.pipeline import ETLPipeline
+from components.converter import convert_duckdb_to_sqlite
 
 # Airflow DAG definition
 default_args = {
@@ -65,6 +66,16 @@ with DAG(
         task_id='update_stock_data',
         python_callable=update_stock_data,
     )
+    
+    # DuckDB to SQLite conversion task
+    convert_to_sqlite = PythonOperator(
+        task_id='convert_to_sqlite',
+        python_callable=convert_duckdb_to_sqlite,
+        op_kwargs={
+            'input_path': 'config/brazil_stock_market.db',
+            'output_path': 'config/metabase/brazil_stock_market_sqlite.db'
+        },
+    )
 
     # Set up dependencies
-    full_pipeline >> update_coins >> update_stocks
+    full_pipeline >> update_coins >> update_stocks >> convert_to_sqlite

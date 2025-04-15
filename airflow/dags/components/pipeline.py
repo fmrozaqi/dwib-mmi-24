@@ -355,6 +355,18 @@ class ETLPipeline:
     
     def load_data(self):
         """Load data ke data warehouse"""
+        # Check if load_data has already been executed successfully
+        check_query = """
+        SELECT COUNT(*) FROM "etlLog" 
+        WHERE "processName" = 'load_data' 
+        AND "status" = 'SUCCESS'
+        """
+        already_executed = self.conn.execute(check_query).fetchone()[0] > 0
+        
+        if already_executed:
+            print("load_data process already executed successfully. Skipping...")
+            return True
+
         log_id = self.log_process_start("load_data")
         
         try:            
@@ -425,8 +437,15 @@ class ETLPipeline:
         log_id = self.log_process_start("insert_fact_data")
         
         try:
+            # Check if CSV file exists
+            import os
+            if not os.path.exists(csv_path):
+                print(f"⚠️ CSV file {csv_path} does not exist. Skipping process.")
+                self.log_process_end(log_id, status='SUCCESS', message=f'CSV file {csv_path} does not exist. Process skipped.')
+                return True
+                
             self.delete_staging_table_value()  # optional cleanup if you have this implemented
-
+                
             # Load CSV
             df = pd.read_csv(csv_path, parse_dates=['time'])
 
@@ -494,7 +513,13 @@ class ETLPipeline:
                 self.conn.execute(insert_sql, (key_time_id, key_value, *fact_values))
 
             print(f"✅ Data successfully inserted into {staging_fact_table}.")
-            self.log_process_end(log_id, status='SUCCESS', message='Fact data has been inserted')
+            
+            # Delete the CSV file after successful processing
+            os.remove(csv_path)
+            print(f"✅ CSV file {csv_path} has been deleted after successful processing.")
+            
+            self.log_process_end(log_id, status='SUCCESS', message=f'Fact data has been inserted and CSV file {csv_path} has been deleted')
+            return True
             
         except Exception as e:
             self.log_process_end(log_id, status='ERROR', message=str(e))

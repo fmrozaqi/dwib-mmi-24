@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 # Path ke data CSV
-DATA_DIR = '../config/data/'
+DATA_DIR = 'config/data/'
 
 # 1. Cek NULL
 def check_nulls():
